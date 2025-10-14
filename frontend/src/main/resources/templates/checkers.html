@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkers</title>
+    <link rel="stylesheet" href="/css/checkers.css">
+    <link rel="stylesheet" href="/css/player_avatar.css">
+    <link rel="stylesheet" href="/css/game.css">
+    <link rel="stylesheet" href="/css/rules.css">
+    <link rel="stylesheet" href="/css/leaderboard.css">
+    <link rel="stylesheet" href="/css/about.css">
+    <link rel="stylesheet" href="/css/reviews.css">
+    <link rel="icon" type="image/png" href="/images/board/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div th:replace="~{rules :: rules}"></div>
+
+<div th:replace="~{game :: game}"></div>
+
+<div th:replace="~{leaderboard :: leaderboard}"></div>
+
+<div th:replace="~{reviews :: reviews}"></div>
+
+<div th:replace="~{about :: about}"></div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
