@@ -1,6 +1,7 @@
 package sk.tuke.gamestudio.gameservice.game;
 
 import lombok.*;
+import sk.tuke.gamestudio.gameservice.dto.MoveDTO;
 import sk.tuke.gamestudio.gameservice.game.figures.King;
 import sk.tuke.gamestudio.gameservice.game.figures.Man;
 import sk.tuke.gamestudio.gameservice.game.figures.Tile;
@@ -26,6 +27,8 @@ public class CheckersField {
     private int scoreWhite;
     private int scoreBlack;
 
+    private List<MoveDTO> movesLog = new ArrayList<>();
+
     public CheckersField() {
         field = new Tile[SIZE][SIZE];
         startNewGame();
@@ -37,8 +40,9 @@ public class CheckersField {
         whiteTurn = true;
         movesWithoutCapture = 0;
         movesByKingsOnly = 0;
-        initializeField();
-        //initializeTestField();
+        movesLog.clear();
+        //initializeField();
+        initializeTestField();
     }
 
     public void initializeField() {
@@ -99,6 +103,16 @@ public class CheckersField {
 
         if (!isChecker(fromRow, fromCol))
             movesByKingsOnly++;
+
+        String player = isWhiteTurn() ? "WHITE" : "BLACK";
+
+        movesLog.add(new MoveDTO(
+                fromRow, fromCol,
+                toRow, toCol,
+                lastCaptured,
+                lastBecameKing,
+                player
+        ));
 
         switchTurn();
         updateGameState();
