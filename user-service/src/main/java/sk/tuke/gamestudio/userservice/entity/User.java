@@ -30,7 +30,6 @@ public class User implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Europe/Bratislava")
     private LocalDateTime lastActive;
 
-    /** Конструктор для нового игрока */
     public User(String nickname, String avatarUrl) {
         this.nickname = nickname;
         this.avatarUrl = avatarUrl;

@@ -20,6 +20,7 @@ export default function Game() {
     const [possibleMoves, setPossibleMoves] = useState([]); // [{row,col},...]
     const [error, setError] = useState(null);
     const [showGameOver, setShowGameOver] = useState(false);
+    const [scoreSaved, setScoreSaved] = useState(false);
 
     // загрузить текущее состояние игры
     const loadState = async () => {
@@ -51,6 +52,35 @@ export default function Game() {
     useEffect(() => {
         loadState()
     }, []);
+
+    useEffect(() => {
+        if (state && state.state !== "PLAYING" && !scoreSaved) {
+            const winner = state.state === "WHITE_WON" ? state.whitePlayer?.nickname : state.blackPlayer?.nickname;
+            const winnerScore = state.state === "WHITE_WON" ? state.whiteScore : state.blackScore;
+
+            if (winner) {
+                fetch("/api/score", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        nickname: winner,
+                        points: winnerScore
+                    })
+                })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error("Не удалось сохранить счет");
+                    }
+                    setScoreSaved(true);
+                })
+                .catch(err => {
+                    console.error(err);
+                    setError("Ошибка при сохранении счета");
+                });
+            }
+        }
+    }, [state, scoreSaved]);
+
 
     // пользователь кликнул на клетку
     const onCellClick = async (r, c) => {
@@ -232,8 +262,11 @@ export default function Game() {
     }
 
     if (state.state !== "PLAYING") {
-        const winner = state.state === "WHITE_WON" ? state.whitePlayer?.nickname || "White" : state.blackPlayer?.nickname || "Black";
-        const bgColor = state.state === "WHITE_WON" ? "#cce6ff" : "#003366"; // светлый/тёмный синий
+        const winner = state.state === "WHITE_WON" ?
+            state.whitePlayer?.nickname || "White"
+            :
+            state.blackPlayer?.nickname || "Black";
+        const bgColor = state.state === "WHITE_WON" ? "#cce6ff" : "#003366";
         const textColor = state.state === "WHITE_WON" ? "#003366" : "#cce6ff";
 
         return (
@@ -308,8 +341,6 @@ export default function Game() {
 
     const white = state.whitePlayer || { nickname: "White", avatarUrl: "" };
     const black = state.blackPlayer || { nickname: "Black", avatarUrl: "" };
-
-    const lastMove = state.lastMove; // MoveDTO или null
 
     return (
         <>

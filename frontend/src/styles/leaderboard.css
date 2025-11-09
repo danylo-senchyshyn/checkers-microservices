@@ -48,14 +48,16 @@ nav a.active {
 .nickname {
     flex: 1;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 500;
+    margin-left: 1.5rem;
 }
 .points {
     font-size: 1.2rem;
     font-weight: bold;
     color: gold;
     text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    margin-right: 1rem;
 }
 /* Градиенты по местам */
 .shade-0 { background: linear-gradient(to right, #c49a6c, #8c6239); }

@@ -5,20 +5,32 @@ import "../styles/leaderboard.css";
 
 export default function LeaderBoard() {
     const [scores, setScores] = useState([]);
+    const [usersMap, setUsersMap] = useState({}); // nickname -> avatarUrl
     const maxPlayers = 10;
 
-    // Загружаем игроков из localStorage
-    const player1 = localStorage.getItem("player1");
-    const player2 = localStorage.getItem("player2");
-    const avatar1 = localStorage.getItem("avatar1");
-    const avatar2 = localStorage.getItem("avatar2");
-
-    // Подгружаем данные с сервера
+    // Загружаем топ игроков с ScoreService
     useEffect(() => {
-        fetch("http://localhost:8080/api/leaderboard")
-            .then((res) => res.json())
+        fetch("/api/score/top")
+            .then(res => {
+                if (!res.ok) throw new Error("Не удалось загрузить лидерборд");
+                return res.json();
+            })
             .then(setScores)
-            .catch((err) => console.error("Failed to load leaderboard:", err));
+            .catch(err => console.error("Failed to load leaderboard:", err));
+    }, []);
+
+    // Загружаем пользователей с UserService, чтобы получить аватарки
+    useEffect(() => {
+        fetch("/api/users")
+            .then(res => res.json())
+            .then(users => {
+                const map = {};
+                users.forEach(user => {
+                    map[user.nickname] = user.avatarUrl || "/images/board/empty_black.png";
+                });
+                setUsersMap(map);
+            })
+            .catch(err => console.error("Failed to load users:", err));
     }, []);
 
     return (
@@ -31,21 +43,17 @@ export default function LeaderBoard() {
                 {Array.from({ length: maxPlayers }, (_, i) => {
                     const score = i < scores.length ? scores[i] : null;
 
-                    if (!score)
+                    if (!score) {
                         return <div key={i} className={`player shade-${i}`} />;
+                    }
 
-                    const avatarSrc =
-                        score.player === player1
-                            ? avatar1
-                            : score.player === player2
-                                ? avatar2
-                                : "/images/board/empty_black.png";
+                    const avatarSrc = usersMap[score.nickname] || "/images/board/empty_black.png";
 
                     return (
                         <div key={i} className={`player shade-${i}`}>
                             <img className="avatar" src={avatarSrc} alt="avatar" />
-                            <span className="nickname">{score.player}</span>
-                            <span className="points">{score.points}</span>
+                            <span className="nickname">{score.nickname}</span>
+                            <span className="points">{score.totalPoints}</span>
                         </div>
                     );
                 })}

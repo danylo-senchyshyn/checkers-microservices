@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
-import "../styles/checkers.css"
+import "../styles/home.css"
 import "../styles/player_avatar.css"
 
 export default function Home() {
