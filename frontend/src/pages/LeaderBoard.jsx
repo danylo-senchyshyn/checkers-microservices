@@ -21,7 +21,7 @@ export default function LeaderBoard() {
 
     // Загружаем пользователей с UserService, чтобы получить аватарки
     useEffect(() => {
-        fetch("/api/users")
+        fetch("/api/user")
             .then(res => res.json())
             .then(users => {
                 const map = {};

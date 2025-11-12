@@ -4,7 +4,7 @@ import React from "react";
 import Home from "./pages/Home.jsx";
 import Rules from "./pages/Rules.jsx";
 import About from "./pages/About.jsx";
-import Reviews from "./pages/Reviews.jsx";
+import Reviews from "./pages/review/Reviews.jsx";
 import LeaderBoard from "./pages/LeaderBoard.jsx";
 import Game from "./pages/game/Game.jsx";
 
