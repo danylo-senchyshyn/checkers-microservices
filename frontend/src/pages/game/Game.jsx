@@ -59,7 +59,7 @@ export default function Game() {
             const winnerScore = state.state === "WHITE_WON" ? state.whiteScore : state.blackScore;
 
             if (winner) {
-                fetch("/api/score", {
+                fetch("/api/scores", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({

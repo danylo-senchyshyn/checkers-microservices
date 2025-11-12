@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/score")
+@RequestMapping("/scores")
 @CrossOrigin(origins = "http://localhost:5173")
 public class ScoreController {
 

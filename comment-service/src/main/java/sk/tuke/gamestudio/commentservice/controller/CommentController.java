@@ -9,7 +9,7 @@ import sk.tuke.gamestudio.commentservice.service.CommentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/comments")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173")
 public class CommentController {

@@ -7,7 +7,7 @@ export default function Header() {
     return (
         <header>
             <div className="header-title">
-                <h1>Checkers</h1>
+                <h1>Checkers - Microservices</h1>
                 <img
                     src={board_checkers}
                     alt="Checkers Logo"

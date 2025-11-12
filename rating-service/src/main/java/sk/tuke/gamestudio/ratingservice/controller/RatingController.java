@@ -10,7 +10,7 @@ import sk.tuke.gamestudio.ratingservice.service.RatingService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rating")
+@RequestMapping("/ratings")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173")
 public class RatingController {

@@ -10,7 +10,7 @@ export default function LeaderBoard() {
 
     // Загружаем топ игроков с ScoreService
     useEffect(() => {
-        fetch("/api/score/top")
+        fetch("/api/scores/top")
             .then(res => {
                 if (!res.ok) throw new Error("Не удалось загрузить лидерборд");
                 return res.json();
@@ -21,7 +21,7 @@ export default function LeaderBoard() {
 
     // Загружаем пользователей с UserService, чтобы получить аватарки
     useEffect(() => {
-        fetch("/api/user")
+        fetch("/api/users")
             .then(res => res.json())
             .then(users => {
                 const map = {};

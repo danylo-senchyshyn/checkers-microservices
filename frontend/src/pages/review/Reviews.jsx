@@ -18,27 +18,27 @@ export default function Reviews() {
 
     // 📥 Получение отзывов, рейтинга и пользователей
     useEffect(() => {
-        fetch("/api/user")
+        fetch("/api/users")
             .then((res) => res.json())
             .then(setUsers)
             .catch(() => setUsers([]));
 
-        fetch("/api/comment/all")
+        fetch("/api/comments/all")
             .then((res) => res.json())
             .then(setComments)
             .catch(() => setComments([]));
 
-        fetch("/api/rating/all") // предполагается, что API возвращает список всех рейтингов
+        fetch("/api/ratings/all") // предполагается, что API возвращает список всех рейтингов
             .then(res => res.json())
             .then(setRatings)
             .catch(() => setRatings([]));
 
-        fetch("/api/rating/average")
+        fetch("/api/ratings/average")
             .then((res) => res.json())
             .then(setAverageRating)
             .catch(() => setAverageRating(0));
 
-        fetch("/api/rating/count")
+        fetch("/api/ratings/count")
             .then(res => res.json())
             .then(setRatingCount)
             .catch(() => setRatingCount(0));
@@ -56,7 +56,7 @@ export default function Reviews() {
         }
 
         try {
-            const response = await fetch("/api/comment", {
+            const response = await fetch("/api/comments", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
@@ -70,7 +70,7 @@ export default function Reviews() {
                 setComment("");
                 setIsCommentModalOpen(false);
 
-                const newComments = await fetch("/api/comment/all").then(res => res.json());
+                const newComments = await fetch("/api/comments/all").then(res => res.json());
                 setComments(newComments);
             } else {
                 console.log("❌ Failed to add comment");
@@ -91,7 +91,7 @@ export default function Reviews() {
         }
 
         try {
-            const response = await fetch("/api/rating", {
+            const response = await fetch("/api/ratings", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({player, rating}),
@@ -102,13 +102,13 @@ export default function Reviews() {
                 setRating(5);
                 setIsRatingModalOpen(false);
 
-                const allRatings = await fetch("/api/rating/all").then(res => res.json());
+                const allRatings = await fetch("/api/ratings/all").then(res => res.json());
                 setRatings(allRatings);
 
-                const newAverageRating = await fetch("/api/rating/average").then(res => res.json());
+                const newAverageRating = await fetch("/api/ratings/average").then(res => res.json());
                 setAverageRating(newAverageRating);
 
-                const newRatingCount = await fetch("/api/rating/count").then(res => res.json());
+                const newRatingCount = await fetch("/api/ratings/count").then(res => res.json());
                 setRatingCount(newRatingCount);
             } else {
                 console.log("❌ Failed to add rating");

@@ -32,7 +32,7 @@ export default function Home() {
 
         try {
             const savePlayer = async (player) => {
-                const res = await fetch("/api/user", {
+                const res = await fetch("/api/users", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(player),
